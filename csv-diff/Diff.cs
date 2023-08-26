@@ -1,0 +1,62 @@
+namespace csv_diff;
+
+// Holds the details of a single difference
+public class Diff
+{
+    public string DiffType { get; set; }
+    public Dictionary<string, object> Fields { get; }
+    public int Row { get; }
+    public object SiblingPosition { get; set; }
+
+    public Diff(string diffType, Dictionary<string, object> fields, int rowIdx, object posIdx)
+    {
+        DiffType = diffType;
+        Fields = fields;
+        Row = rowIdx + 1;
+        SetSiblingPosition(posIdx);
+    }
+
+    private void SetSiblingPosition(object posIdx)
+    {
+        if (posIdx is List<int> posList)
+        {
+            posList.RemoveAll(item => item == 0);
+            if (posList.Count > 1)
+            {
+                SiblingPosition = posList.ConvertAll(pos => pos + 1);
+            }
+            else
+            {
+                SiblingPosition = posList.Count > 0 ? posList[0] + 1 : null;
+            }
+        }
+        else if (posIdx is int pos)
+        {
+            SiblingPosition = pos + 1;
+        }
+    }
+
+    // For backwards compatibility and access to fields with differences
+    public object this[string key]
+    {
+        get
+        {
+            switch (key)
+            {
+                case "action":
+                    string a = DiffType;
+                    if (!string.IsNullOrEmpty(a))
+                    {
+                        a = char.ToUpper(a[0]) + a.Substring(1);
+                    }
+                    return a;
+                case "row":
+                    return Row;
+                case "sibling_position":
+                    return SiblingPosition;
+                default:
+                    return Fields.TryGetValue(key, out object? value) ? value : null;
+            }
+        }
+    }
+}
