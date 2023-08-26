@@ -98,7 +98,6 @@ public class Algorithm
                     {
                         var id = IdFields(keyFields, rightValue);
                         
-                        // throw new Exception("TODO;");
                         diffs[key] = new Diff("update", id.Union(changes).ToDictionary(x => x.Key, x => x.Value), rightIdx, rightIdx);
                     }
                 }
@@ -130,7 +129,7 @@ public class Algorithm
                 var child = string.Join("~", keyVals.Skip(parentFieldCount));
                 if (potentialMoves.TryGetValue(child, out var potentialMovesList) && potentialMovesList.Count > 0)
                 {
-                    var oldKey = potentialMovesList[potentialMovesList.Count - 1];
+                    var oldKey = potentialMovesList[^1];
                     potentialMovesList.RemoveAt(potentialMovesList.Count - 1);
                     diffs.Remove(oldKey);
                     if (includeUpdates && diffFieldsNoKeys.Length > 0)
@@ -139,7 +138,6 @@ public class Algorithm
                         var id = IdFields(right.ChildFields.ToArray(), rightValue);
                         var changes = DiffRow(leftValue, rightValue, left.ParentFields.Concat(diffFieldsNoKeys).ToArray(), caseSensitive, equalityProcs);
                         
-                        // throw new Exception("TODO;");
                         diffs[key] = new Diff("update", id.Union(changes).ToDictionary(x => x.Key, x => x.Value), rightIdx, rightIdx);
                     }
                 }
