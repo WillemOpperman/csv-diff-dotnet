@@ -33,9 +33,7 @@ public class Source
     public Source(Dictionary<string, object> options = null)
     {
         if (options == null)
-        {
             options = new Dictionary<string, object>();
-        }
 
         if ((!options.ContainsKey("parent_field") && !options.ContainsKey("parent_fields") &&
             !options.ContainsKey("child_field") && !options.ContainsKey("child_fields")) &&
