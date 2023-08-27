@@ -12,8 +12,22 @@
 
         <!-- If all members are not documented, you can disable the compiler warnings -->
         <NoWarn>$(NoWarn);CS1591</NoWarn>
+    </PropertyGroup>
 
-        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PropertyGroup>
+        <Authors>Willem Opperman</Authors>
+        <Description>This library will produce csv/xml differences.</Description>
+
+        <!-- PackageProjectUrl is different from the repository URL. It can be a documentation
+             website or a website explaining the project -->
+        <PackageProjectUrl>https://github.com/WillemOpperman/csv-diff-dotnet</PackageProjectUrl>
+
+        <!-- A list of tags to help the search engine to understand the content of the package -->
+        <PackageTags>csvdiff, library</PackageTags>
+
+        <PackageLicenseFile>LICENSE</PackageLicenseFile>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageIcon>nuget.png</PackageIcon>
     </PropertyGroup>
 
     <ItemGroup>
@@ -26,6 +40,12 @@
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Include="..\LICENSE" Pack="true" PackagePath=""/>
+      <None Include="..\README.md" Pack="true" PackagePath=""/>
+      <None Include="..\nuget.png" Pack="true" PackagePath=""/>
     </ItemGroup>
 
 </Project>

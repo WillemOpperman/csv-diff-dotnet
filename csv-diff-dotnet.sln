@@ -8,6 +8,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "files", "files", "{A6B050A6
 	ProjectSection(SolutionItems) = preProject
 		.commitlintrc.json = .commitlintrc.json
 		.gitignore = .gitignore
+		LICENSE = LICENSE
+		README.md = README.md
+		nuget.png = nuget.png
 	EndProjectSection
 EndProject
 Global
