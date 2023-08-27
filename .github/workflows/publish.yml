@@ -87,7 +87,6 @@ jobs:
         id: release
         uses: cycjimmy/semantic-release-action@v3
         with:
-          semantic_version: 20
           extra_plugins: |
             @semantic-release/commit-analyzer
             @semantic-release/release-notes-generator
