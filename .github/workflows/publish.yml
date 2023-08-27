@@ -85,13 +85,13 @@ jobs:
     steps:
       - name: Semantic Release
         id: release
-        uses: cycjimmy/semantic-release-action@v3
+        uses: cycjimmy/semantic-release-action@v3.4.1
         with:
-          semantic_version: 21.1.1
+          semantic_version: 19
           extra_plugins: |
             @semantic-release/commit-analyzer
-            @semantic-release/release-notes-generator
-            @semantic-release/github
+            @semantic-release/release-notes-generator@^10
+            @semantic-release/github@^8
             @semantic-release/git
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
