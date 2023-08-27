@@ -85,15 +85,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        
       - name: Semantic Release
         id: release
-        uses: cycjimmy/semantic-release-action@v3
+        uses: codfish/semantic-release-action@v2
         with:
-          extra_plugins: |
-            @semantic-release/commit-analyzer
-            @semantic-release/release-notes-generator
-            @semantic-release/github
-            @semantic-release/git
+          repository_url: https://github.com/codfish/semantic-release-action.git
+          tag_format: 'v${version}'
+          extends: '@semantic-release/apm-config'
+          additional_packages: |
+            ['@semantic-release/git']
+          plugins: |
+            ['@semantic-release/commit-analyzer', '@semantic-release/release-notes-generator', '@semantic-release/github', '@semantic-release/git']
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
