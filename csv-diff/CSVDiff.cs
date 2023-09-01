@@ -43,6 +43,11 @@ public class CSVDiff : Algorithm
             throw new Exception("No field names found in right (to) source");
         }
 
+        if (Left.Lines == null)
+        {
+            Left.IndexSource();
+        }
+
         Diffs = new Dictionary<string, Diff>();
         DiffFields = GetDiffFields(Left.FieldNames, Right.FieldNames, options);
         KeyFields = Left.KeyFields;
