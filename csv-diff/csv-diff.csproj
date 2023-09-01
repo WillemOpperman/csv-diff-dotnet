@@ -18,6 +18,8 @@
         <Authors>Willem Opperman</Authors>
         <Description>This library will produce csv/xml differences.</Description>
 
+        <PackageId>CSVDiff</PackageId>
+
         <!-- PackageProjectUrl is different from the repository URL. It can be a documentation
              website or a website explaining the project -->
         <PackageProjectUrl>https://github.com/WillemOpperman/csv-diff-dotnet</PackageProjectUrl>
