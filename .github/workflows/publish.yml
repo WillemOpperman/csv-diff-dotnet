@@ -30,6 +30,12 @@ jobs:
         uses: codfish/semantic-release-action@v2
         with:
           repository_url: https://github.com/WillemOpperman/csv-diff-dotnet.git
+          # specify default branches to add support for the `main` branch
+          # which semantic-release doesn't have as a default yet.
+          branches: |
+            [
+              'main'
+            ]
           tag_format: 'v${version}'
           extends: '@semantic-release/apm-config'
           additional_packages: |
