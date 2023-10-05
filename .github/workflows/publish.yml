@@ -30,7 +30,6 @@ jobs:
         id: release
         uses: codfish/semantic-release-action@v2
         with:
-          persist-credentials: false
           repository_url: https://github.com/WillemOpperman/csv-diff-dotnet.git
           # specify default branches to add support for the `main` branch
           # which semantic-release doesn't have as a default yet.
