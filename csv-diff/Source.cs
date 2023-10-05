@@ -63,9 +63,9 @@ public class Source
         {
             FieldNames = ((List<object>)options["field_names"]).Select(fn => fn.ToString()).ToList();
         }
-        CaseSensitive = options.ContainsKey("case_sensitive") ? (bool)options["case_sensitive"] : true;
-        TrimWhitespace = options.ContainsKey("trim_whitespace") ? (bool)options["trim_whitespace"] : false;
-        IgnoreHeader = options.ContainsKey("ignore_header") ? (bool)options["ignore_header"] : false;
+        CaseSensitive = !options.ContainsKey("case_sensitive") || (bool)options["case_sensitive"];
+        TrimWhitespace = options.ContainsKey("trim_whitespace") && (bool)options["trim_whitespace"];
+        IgnoreHeader = options.ContainsKey("ignore_header") && (bool)options["ignore_header"];
 
         if (options.ContainsKey("include"))
         {
