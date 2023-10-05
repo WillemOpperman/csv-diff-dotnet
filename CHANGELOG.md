@@ -1,3 +1,15 @@
+# [1.2.0](https://github.com/WillemOpperman/csv-diff-dotnet/compare/v1.1.0...v1.2.0) (2023-10-05)
+
+
+### Bug Fixes
+
+* invalid option ([9705cbe](https://github.com/WillemOpperman/csv-diff-dotnet/commit/9705cbe6b65c7fd0ade2d3fe86cab4ac0d7f2219))
+
+
+### Features
+
+* simplify release process ([1351d64](https://github.com/WillemOpperman/csv-diff-dotnet/commit/1351d64899f08279054d5eef4181e75b92b0ba23))
+
 # [1.1.0](https://github.com/WillemOpperman/csv-diff-dotnet/compare/v1.0.0...v1.1.0) (2023-10-05)
 
 
