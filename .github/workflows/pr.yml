@@ -1,9 +1,16 @@
 name: 'Pull Requests'
 on:
-  - pull_request
+  workflow_dispatch: # Allow running the workflow manually from the GitHub UI
+  pull_request:
+    branches:
+      - '*'          # Run the workflow for all pull requests
+
 env:
-  TF_VERSION: ~1.0
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
+  DOTNET_NOLOGO: true
+  NuGetDirectory: ${{ github.workspace}}/nuget
+  
 jobs:
   commitlint:
     runs-on: ubuntu-latest
@@ -14,3 +21,12 @@ jobs:
       - uses: wagoid/commitlint-github-action@v1
         with:
           configFile: ./.commitlintrc.json
+
+  run_test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+      - name: Run tests
+        run: dotnet test --configuration Release      
