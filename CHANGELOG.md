@@ -1,3 +1,11 @@
+## [1.2.1](https://github.com/WillemOpperman/csv-diff-dotnet/compare/v1.2.0...v1.2.1) (2023-10-07)
+
+
+### Bug Fixes
+
+* reading `CSV` file ([7095998](https://github.com/WillemOpperman/csv-diff-dotnet/commit/70959980f679f152c8281818af3e7ae9294efba4))
+* reading `XML` file ([897d36b](https://github.com/WillemOpperman/csv-diff-dotnet/commit/897d36b2d22bc1cf389e34be9d1d480078550bb9))
+
 # [1.2.0](https://github.com/WillemOpperman/csv-diff-dotnet/compare/v1.1.0...v1.2.0) (2023-10-05)
 
 
