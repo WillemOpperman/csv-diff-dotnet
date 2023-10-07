@@ -76,7 +76,7 @@ public class TestDiff
             {"child_field", 1}
         };
         
-        var leftXmlSource = new XMLSource(xmlSourceOptions);
+        var leftXmlSource = new XMLSource(data1Path, xmlSourceOptions);
         leftXmlSource.Process(data1Path, "//Workbook/Worksheet/Table/Row", new Dictionary<string, string>
         {
             { "Parent", "Cell[1]/Data/text()" },
@@ -84,7 +84,7 @@ public class TestDiff
             { "Description", "Cell[3]/Data/text()"  }
         });
         
-        var rightXmlSource = new XMLSource(xmlSourceOptions);
+        var rightXmlSource = new XMLSource(data2Path, xmlSourceOptions);
         rightXmlSource.Process(data2Path, "//Workbook/Worksheet/Table/Row", new Dictionary<string, string>
         {
             { "Parent", "Cell[1]/Data/text()" },
