@@ -156,4 +156,28 @@ public class TestDiff
         Assert.Equal(1, source1.SkipCount);
         Assert.Equal(1, source2.SkipCount);
     }
+
+    [Fact]
+    public void TestCustomers_1000()
+    {
+        var data1Path = Path.Combine(Path.GetDirectoryName(typeof(TestDiff).Assembly.Location)!, "files", "customers-1000.csv");
+        var data2Path = Path.Combine(Path.GetDirectoryName(typeof(TestDiff).Assembly.Location)!, "files", "customers-1000.csv");
+        var diff = new CSVDiff(data1Path, data2Path);
+
+        Assert.Empty(diff.Adds);
+        Assert.Empty(diff.Deletes);
+        Assert.Empty(diff.Updates);
+    }
+
+    [Fact(Skip = "Speed testing only")]
+    public void TestCustomers_10000()
+    {
+        var data1Path = Path.Combine(Path.GetDirectoryName(typeof(TestDiff).Assembly.Location)!, "files", "customers-10000.csv");
+        var data2Path = Path.Combine(Path.GetDirectoryName(typeof(TestDiff).Assembly.Location)!, "files", "customers-10000.csv");
+        var diff = new CSVDiff(data1Path, data2Path);
+
+        Assert.Empty(diff.Adds);
+        Assert.Empty(diff.Deletes);
+        Assert.Empty(diff.Updates);
+    }
 }
