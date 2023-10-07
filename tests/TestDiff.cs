@@ -38,6 +38,11 @@ public class TestDiff
             { "child_field", 1 }
         });
 
+        Assert.Equal(new[] {"Parent"}, diff.Left.ParentFields);
+        Assert.Equal(new[] {"Parent"}, diff.Right.ParentFields);
+        Assert.Equal(new[] {"Child"}, diff.Left.ChildFields);
+        Assert.Equal(new[] {"Child"}, diff.Right.ChildFields);
+
         Assert.Equal(3, diff.Adds.Count);
         Assert.Equal(2, diff.Deletes.Count);
         Assert.Equal(2, diff.Updates.Count);
@@ -129,12 +134,6 @@ public class TestDiff
             { "include", new Dictionary<string, Regex> { { "Description", new Regex("Account") } } }
         });
 
-        var diff = new CSVDiff(source1, source2, new Dictionary<string, object>
-        {
-            { "parent_field", 0 },
-            { "child_field", 1 }
-        });
-
         Assert.Equal(0, source1.SkipCount);
         Assert.Equal(1, source2.SkipCount);
     }
@@ -152,12 +151,6 @@ public class TestDiff
         {
             { "key_fields", new List<int> { 0, 1 } },
             { "exclude", new Dictionary<string, Regex> { { "2", new Regex("^ACC") } } }
-        });
-
-        var diff = new CSVDiff(source1, source2, new Dictionary<string, object>
-        {
-            { "parent_field", 0 },
-            { "child_field", 1 }
         });
 
         Assert.Equal(1, source1.SkipCount);
