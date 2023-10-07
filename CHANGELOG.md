@@ -1,3 +1,10 @@
+## [1.2.4](https://github.com/WillemOpperman/csv-diff-dotnet/compare/v1.2.3...v1.2.4) (2023-10-07)
+
+
+### Bug Fixes
+
+* allow running CSVDiff without `options` ([7e7f2dc](https://github.com/WillemOpperman/csv-diff-dotnet/commit/7e7f2dcad5ff61e9bd7d10c14621544f32d5da8b))
+
 ## [1.2.3](https://github.com/WillemOpperman/csv-diff-dotnet/compare/v1.2.2...v1.2.3) (2023-10-07)
 
 
