@@ -195,7 +195,7 @@ var keyField = new Dictionary<string, object>
   { "key_field", "COL_A" }
 };
 
-var xmlSource1 = new XMLSource(keyField);
+var xmlSource1 = new XMLSource('The path to the file OR label', keyField);
 ```
 
 #### Processing XML Documents
