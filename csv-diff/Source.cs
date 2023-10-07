@@ -47,7 +47,8 @@ public class Source : ISource
             ChildFields = keyFields;
             KeyFields = keyFields;
         }
-        else
+        else if ((options.ContainsKey("parent_field") || options.ContainsKey("parent_fields")) &&
+                  (options.ContainsKey("child_field") || options.ContainsKey("child_fields")))
         {
             ParentFields = options.ContainsKey("parent_field") ?
                 new List<string> { options["parent_field"].ToString() } :
@@ -58,6 +59,12 @@ public class Source : ISource
                 ((List<object>)options["child_fields"]).Select(cf => cf.ToString()).ToList();
 
             KeyFields = ParentFields.Concat(ChildFields).ToList();
+        }
+        else
+        {
+            ParentFields = new List<string>();
+            ChildFields = new List<string> { "0" };
+            KeyFields = new List<string> { "0" };
         }
 
         if (options.ContainsKey("field_names"))
