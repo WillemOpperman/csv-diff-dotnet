@@ -43,6 +43,7 @@ public class Diff
         {
             switch (key)
             {
+                case "Action":
                 case "action":
                     string a = DiffType;
                     if (!string.IsNullOrEmpty(a))
@@ -50,8 +51,10 @@ public class Diff
                         a = char.ToUpper(a[0]) + a.Substring(1);
                     }
                     return a;
+                case "Row":
                 case "row":
                     return Row;
+                case "SiblingPosition":
                 case "sibling_position":
                     return SiblingPosition;
                 default:
