@@ -1,3 +1,4 @@
+using System.Text;
 using CsvHelper;
 
 namespace csv_diff;
@@ -29,7 +30,20 @@ public class CSVSource : Source
         var encoding = options?.GetValueOrDefault("encoding") as string;
         var csvOptions = options?.GetValueOrDefault("csv_options") as Dictionary<string, object>;
 
-        var config = new CsvHelper.Configuration.CsvConfiguration(System.Globalization.CultureInfo.InvariantCulture);
+        var config = new CsvHelper.Configuration.CsvConfiguration(System.Globalization.CultureInfo.InvariantCulture)
+        {
+            HasHeaderRecord = true,
+            IgnoreBlankLines = true,
+            TrimOptions = CsvHelper.Configuration.TrimOptions.Trim,
+            BadDataFound = null,
+            MissingFieldFound = null,
+            HeaderValidated = null,
+            Delimiter = ",",
+            Quote = '"',
+            AllowComments = false,
+            Comment = '#',
+        };
+        
         if (csvOptions != null)
         {
             foreach (var kvp in csvOptions)
@@ -38,10 +52,11 @@ public class CSVSource : Source
             }
         }
 
-        using (var reader = new StreamReader(filePath, encoding != null ? System.Text.Encoding.GetEncoding(encoding) : null))
+        using (var reader = new StreamReader(filePath, encoding != null ? System.Text.Encoding.GetEncoding(encoding) : new UTF8Encoding(false)))
         using (var csv = new CsvReader(reader, config))
         {
-            Data = csv.GetRecords<string[]>().ToList();
+            var records = csv.GetRecords<dynamic>().ToList();
+            Data = records.Select(r => ((IDictionary<string, object>)r).Values.Select(v => v.ToString()).ToArray()).ToList();
         }
     }
 }
