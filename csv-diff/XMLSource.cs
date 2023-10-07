@@ -69,9 +69,9 @@ public class XMLSource : Source
     {
         var namespaceManager = new XmlNamespaceManager(doc.NameTable);
         namespaceManager.AddNamespace("ns", doc.DocumentElement.NamespaceURI);
-
+        
         var recNodes = doc.SelectNodes(recXPath, namespaceManager);
-        foreach (XmlNode recNode in recNodes)
+        foreach (XmlElement recNode in recNodes)
         {
             var rec = new List<string>();
             foreach (var fieldMap in fieldMaps)
@@ -91,8 +91,8 @@ public class XMLSource : Source
                 }
                 else if (new[] { "/", "(", ".", "@" }.Any(c => expr.Contains(c))) // XPath expression
                 {
-                    var res = recNode.SelectSingleNode(expr, namespaceManager);
-                    rec.Add(res?.InnerText);
+                    var value = recNode.CreateNavigator().Evaluate($"string({expr})", namespaceManager);
+                    rec.Add(value.ToString());
                 }
                 else // Use expr as the value for this field
                 {
@@ -102,29 +102,18 @@ public class XMLSource : Source
             Data.Add(rec.ToArray());
         }
     }
-    
+
     private bool VerifyRegEx(string testPattern)
     {
-        bool isValid = true;
+        if (testPattern is null)
+            return false;
+        
+        if (testPattern.Trim( ).Length == 0)
+            return false;
+        
+        if (Regex.Escape(testPattern) != testPattern)
+            return false;
 
-        if ((testPattern != null) && (testPattern.Trim( ).Length > 0))
-        {
-            try
-            {
-                Regex.Match("", testPattern);
-            }
-            catch (ArgumentException)
-            {
-                // BAD PATTERN: Syntax error
-                isValid = false;
-            }
-        }
-        else
-        {
-            //BAD PATTERN: Pattern is null or blank
-            isValid = false;
-        }
-
-        return (isValid);
+        return true;
     }
 }
