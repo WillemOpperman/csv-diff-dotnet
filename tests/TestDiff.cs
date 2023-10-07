@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO;
 using System.Text.RegularExpressions;
 using csv_diff;
 using Xunit;
@@ -33,6 +34,62 @@ public class TestDiff
     {
         var diff = new CSVDiff(Data1, Data2, new Dictionary<string, object>
         {
+            { "parent_field", 0 },
+            { "child_field", 1 }
+        });
+
+        Assert.Equal(3, diff.Adds.Count);
+        Assert.Equal(2, diff.Deletes.Count);
+        Assert.Equal(2, diff.Updates.Count);
+    }
+
+    [Fact]
+    public void TestCsvDiff()
+    {
+        var data1Path = Path.Combine(Path.GetDirectoryName(typeof(TestDiff).Assembly.Location)!, "files", "data1.csv");
+        var data2Path = Path.Combine(Path.GetDirectoryName(typeof(TestDiff).Assembly.Location)!, "files", "data2.csv");
+        var diff = new CSVDiff(data1Path, data2Path, new Dictionary<string, object>
+        {
+            { "parent_field", 0 },
+            { "child_field", 1 }
+        });
+
+        Assert.Equal(3, diff.Adds.Count);
+        Assert.Equal(2, diff.Deletes.Count);
+        Assert.Equal(2, diff.Updates.Count);
+    }
+
+    [Fact]
+    public void TestXmlDiff()
+    {
+        var data1Path = Path.Combine(Path.GetDirectoryName(typeof(TestDiff).Assembly.Location)!, "files", "data1.xls");
+        var data2Path = Path.Combine(Path.GetDirectoryName(typeof(TestDiff).Assembly.Location)!, "files", "data2.xls");
+
+        var xmlSourceOptions = new Dictionary<string, object>
+        {
+            {"parent_field", 0},
+            {"child_field", 1}
+        };
+        
+        var leftXmlSource = new XMLSource(data1Path, xmlSourceOptions);
+        leftXmlSource.Process(data1Path, "//Workbook/Worksheet/Table/Row", new Dictionary<string, string>
+        {
+            { "Parent", "Cell[1]/Data/text()" },
+            { "Child", "Cell[2]/Data/text()"  },
+            { "Description", "Cell[3]/Data/text()"  }
+        });
+        
+        var rightXmlSource = new XMLSource(data2Path, xmlSourceOptions);
+        rightXmlSource.Process(data2Path, "//Workbook/Worksheet/Table/Row", new Dictionary<string, string>
+        {
+            { "Parent", "Cell[1]/Data/text()" },
+            { "Child", "Cell[2]/Data/text()"  },
+            { "Description", "Cell[3]/Data/text()"  }
+        });
+        
+        var diff = new CSVDiff(leftXmlSource, rightXmlSource, new Dictionary<string, object>
+        {
+            { "ignore_moves", true },
             { "parent_field", 0 },
             { "child_field", 1 }
         });
