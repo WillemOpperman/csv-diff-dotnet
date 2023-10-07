@@ -1,3 +1,10 @@
+## [1.2.2](https://github.com/WillemOpperman/csv-diff-dotnet/compare/v1.2.1...v1.2.2) (2023-10-07)
+
+
+### Bug Fixes
+
+* revert commit "remove `Path` and all references" ([1cb5629](https://github.com/WillemOpperman/csv-diff-dotnet/commit/1cb5629e7c119ab568a4374780a2218edabf1a9e))
+
 ## [1.2.1](https://github.com/WillemOpperman/csv-diff-dotnet/compare/v1.2.0...v1.2.1) (2023-10-07)
 
 
