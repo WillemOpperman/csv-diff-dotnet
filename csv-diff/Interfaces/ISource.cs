@@ -4,6 +4,7 @@ namespace csv_diff.Interfaces;
 
 public interface ISource
 {
+    public string Path { get; set; }
     public List<string[]> Data { get; internal set; }
     public List<string> FieldNames { get; private protected set; }
     public List<string> KeyFields { get; set; }
@@ -23,6 +24,7 @@ public interface ISource
     public int DupCount { get; set; }
     public Dictionary<string, Dictionary<string, object>> Lines { get; set; }
     public Dictionary<string, List<string>> Index { get; set; }
+    public bool PathExists => Path != "NA";
     public void IndexSource();
     public void SaveCSV(string filePath, Dictionary<string, object> options = null);
     public List<Dictionary<string, string>> ToHash();

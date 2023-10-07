@@ -10,6 +10,7 @@ namespace csv_diff;
 // Represents an input (i.e the left/from or right/to input) to the diff process.
 public class Source : ISource
 {
+    public string Path { get; set; }
     public List<string[]> Data { get; set; }
     public List<string> FieldNames { get; set; }
     public List<string> KeyFields { get; set; }
@@ -79,8 +80,11 @@ public class Source : ISource
             // Exclude = ConvertFilter((Dictionary<string, Regex>)options["exclude"], FieldNames);
         }
 
+        Path = options.ContainsKey("path") ? options["path"].ToString() : "NA";
         Warnings = new List<string>();
     }
+
+    public bool PathExists => Path != "NA";
 
     public Dictionary<string, object> this[string key]
     {
