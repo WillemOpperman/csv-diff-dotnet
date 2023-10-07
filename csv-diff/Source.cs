@@ -1,34 +1,35 @@
 using System.Collections;
 using System.Globalization;
 using System.Text.RegularExpressions;
+using csv_diff.Interfaces;
 using CsvHelper;
 using CsvHelper.Configuration;
 
 namespace csv_diff;
 
 // Represents an input (i.e the left/from or right/to input) to the diff process.
-public class Source
+public class Source : ISource
 {
     public string Path { get; set; }
-    public List<string[]> Data { get; internal set; }
-    public List<string> FieldNames { get; private protected set; }
-    public List<string> KeyFields { get; private set; }
-    public List<string> ParentFields { get; private set; }
-    public List<string> ChildFields { get; private set; }
-    public List<int> KeyFieldIndexes { get; private set; }
-    public List<int> ParentFieldIndexes { get; private set; }
-    public List<int> ChildFieldIndexes { get; private set; }
-    public bool CaseSensitive { get; private set; }
-    public bool TrimWhitespace { get; private set; }
-    public bool IgnoreHeader { get; private set; }
-    public Dictionary<string, Regex> Include { get; private set; }
-    public Dictionary<string, Regex> Exclude { get; private set; }
-    public List<string> Warnings { get; private set; }
-    public int LineCount { get; private set; }
-    public int SkipCount { get; private set; }
-    public int DupCount { get; private set; }
-    public Dictionary<string, Dictionary<string, object>> Lines { get; private set; }
-    public Dictionary<string, List<string>> Index { get; private set; }
+    public List<string[]> Data { get; set; }
+    public List<string> FieldNames { get; set; }
+    public List<string> KeyFields { get; set; }
+    public List<string> ParentFields { get; set; }
+    public List<string> ChildFields { get; set; }
+    public List<int> KeyFieldIndexes { get; set; }
+    public List<int> ParentFieldIndexes { get; set; }
+    public List<int> ChildFieldIndexes { get; set; }
+    public bool CaseSensitive { get; set; }
+    public bool TrimWhitespace { get; set; }
+    public bool IgnoreHeader { get; set; }
+    public Dictionary<string, Regex> Include { get; set; }
+    public Dictionary<string, Regex> Exclude { get; set; }
+    public List<string> Warnings { get; set; }
+    public int LineCount { get; set; }
+    public int SkipCount { get; set; }
+    public int DupCount { get; set; }
+    public Dictionary<string, Dictionary<string, object>> Lines { get; set; }
+    public Dictionary<string, List<string>> Index { get; set; }
 
     public Source(Dictionary<string, object> options = null)
     {
