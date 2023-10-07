@@ -15,47 +15,45 @@ public class XMLSource : Source
         Data = new List<string[]>();
     }
 
-    // Process a +source+, converting the XML into a table of data, using +rec_xpath+ to identify the nodes that correspond each record that should appear in the output,
-    // and +field_maps+ to populate each field in each row.
-    public List<string[]> Process(object source, string recXPath, Dictionary<string, string> fieldMaps, string? context = null)
+    // Process a +source+, converting the XML into a table of data, using +rowsXPath+ to identify the nodes that correspond each record that should appear in the output,
+    // and +fieldMaps+ to populate each field in each row.
+    public void Process(object source, string rowsXPath, Dictionary<string, string> fieldMaps, string? context = null)
     {
         FieldNames ??= fieldMaps.Keys.ToList();
         if (source is XmlDocument xmlDoc)
         {
-            AddData(xmlDoc, recXPath, fieldMaps, context ?? Context);
+            AddData(xmlDoc, rowsXPath, fieldMaps, context ?? Context);
         }
         else if (source is string xmlString && xmlString.StartsWith("<?xml"))
         {
             var doc = new XmlDocument();
             doc.LoadXml(xmlString);
-            AddData(doc, recXPath, fieldMaps, context ?? Context);
+            AddData(doc, rowsXPath, fieldMaps, context ?? Context);
         }
         else if (source is IEnumerable<string> filePaths)
         {
             foreach (var filePath in filePaths)
             {
-                ProcessFile(filePath, recXPath, fieldMaps);
+                ProcessFile(filePath, rowsXPath, fieldMaps);
             }
         }
         else if (source is string filePath)
         {
-            ProcessFile(filePath, recXPath, fieldMaps);
+            ProcessFile(filePath, rowsXPath, fieldMaps);
         }
         else
         {
             throw new ArgumentException($"Unhandled source type {source.GetType().Name}");
         }
-
-        return Data;
     }
 
-    private void ProcessFile(string filePath, string recXPath, Dictionary<string, string> fieldMaps)
+    private void ProcessFile(string filePath, string rowsXPath, Dictionary<string, string> fieldMaps)
     {
         try
         {
             var doc = new XmlDocument();
             doc.Load(filePath);
-            AddData(doc, recXPath, fieldMaps, Context ?? filePath);
+            AddData(doc, rowsXPath, fieldMaps, Context ?? filePath);
         }
         catch (Exception ex)
         {
@@ -64,13 +62,13 @@ public class XMLSource : Source
         }
     }
 
-    private void AddData(XmlDocument doc, string recXPath, Dictionary<string, string> fieldMaps, string context)
+    private void AddData(XmlDocument doc, string rowsXPath, Dictionary<string, string> fieldMaps, string context)
     {
         var namespaceManager = new XmlNamespaceManager(doc.NameTable);
         namespaceManager.AddNamespace("ns", doc.DocumentElement.NamespaceURI);
         
-        var recNodes = doc.SelectNodes(recXPath, namespaceManager);
-        foreach (XmlElement recNode in recNodes)
+        var rowNodes = doc.SelectNodes(rowsXPath, namespaceManager);
+        foreach (XmlElement rowNode in rowNodes)
         {
             var rec = new List<string>();
             foreach (var fieldMap in fieldMaps)
@@ -90,7 +88,7 @@ public class XMLSource : Source
                 }
                 else if (new[] { "/", "(", ".", "@" }.Any(c => expr.Contains(c))) // XPath expression
                 {
-                    var value = recNode.CreateNavigator().Evaluate($"string({expr})", namespaceManager);
+                    var value = rowNode.CreateNavigator().Evaluate($"string({expr})", namespaceManager);
                     rec.Add(value.ToString());
                 }
                 else // Use expr as the value for this field
