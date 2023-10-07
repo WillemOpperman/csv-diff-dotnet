@@ -249,7 +249,7 @@ This project exists thanks to all the people who contribute.
 
 Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/csvdiff#backer)]
 
-<a href="https://opencollective.com/csvhelper#backers" target="_blank"><img src="https://opencollective.com/csvdiff/backers.svg?width=890"></a>
+<a href="https://opencollective.com/csvdiff#backers" target="_blank"><img src="https://opencollective.com/csvdiff/backers.svg?width=890"></a>
 
 ### Sponsors
 
