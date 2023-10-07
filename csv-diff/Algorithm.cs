@@ -1,3 +1,5 @@
+using csv_diff.Interfaces;
+
 namespace csv_diff;
 
 // Implements the CSV diff algorithm.
@@ -5,8 +7,8 @@ public class Algorithm
 {
     // Diffs two CSVSource structures.
     public Dictionary<string, Diff> DiffSources(
-        CSVSource left,
-        CSVSource right,
+        ISource left,
+        ISource right,
         string[] keyFields,
         string[] diffFields,
         IDictionary<string, object> options = null)

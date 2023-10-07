@@ -1,11 +1,13 @@
+using csv_diff.Interfaces;
+
 namespace csv_diff;
 
 public class CSVDiff : Algorithm
 {
     // CSVSource object containing details of the left/from input.
-    public CSVSource Left { get; }
+    public ISource Left { get; }
     // CSVSource object containing details of the right/to input.
-    public CSVSource Right { get; }
+    public ISource Right { get; }
     // An array of differences
     public Dictionary<string, Diff> Diffs { get; set; }
 
@@ -23,7 +25,7 @@ public class CSVDiff : Algorithm
     // Constructor
     public CSVDiff(object left, object right, Dictionary<string, object> options = null)
     {
-        Left = left is CSVSource leftSource ? leftSource : new CSVSource(left, options);
+        Left = left is ISource leftSource ? leftSource : new CSVSource(left, options);
         if (Left.Lines == null)
         {
             Left.IndexSource();
@@ -33,7 +35,7 @@ public class CSVDiff : Algorithm
             throw new Exception("No field names found in left (from) source");
         }
 
-        Right = right is CSVSource rightSource ? rightSource : new CSVSource(right, options);
+        Right = right is ISource rightSource ? rightSource : new CSVSource(right, options);
         if (Right.Lines == null)
         {
             Right.IndexSource();
