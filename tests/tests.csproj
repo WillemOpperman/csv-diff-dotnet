@@ -24,4 +24,19 @@
       <ProjectReference Include="..\csv-diff\csv-diff.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="files\data1.csv">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="files\data2.csv">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="files\data1.xls">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="files\data2.xls">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>
