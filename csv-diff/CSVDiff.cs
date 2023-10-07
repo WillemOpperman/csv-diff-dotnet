@@ -25,6 +25,7 @@ public class CSVDiff : Algorithm
     // Constructor
     public CSVDiff(object left, object right, Dictionary<string, object> options = null)
     {
+        options ??= new Dictionary<string, object>();
         Left = left is ISource leftSource ? leftSource : new CSVSource(left, options);
         if (Left.Lines == null)
         {
