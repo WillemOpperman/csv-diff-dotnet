@@ -1,3 +1,10 @@
+## [1.2.3](https://github.com/WillemOpperman/csv-diff-dotnet/compare/v1.2.2...v1.2.3) (2023-10-07)
+
+
+### Bug Fixes
+
+* allow PascalCase to resolve ([7c22d12](https://github.com/WillemOpperman/csv-diff-dotnet/commit/7c22d121c649e0bffa6caee061debf2ca3e23aab))
+
 ## [1.2.2](https://github.com/WillemOpperman/csv-diff-dotnet/compare/v1.2.1...v1.2.2) (2023-10-07)
 
 
