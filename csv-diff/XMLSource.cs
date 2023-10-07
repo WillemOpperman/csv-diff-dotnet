@@ -9,9 +9,8 @@ public class XMLSource : Source
     public string? Context { get; set; }
 
     // Constructor
-    public XMLSource(string path, Dictionary<string, object> options = null) : base(options)
+    public XMLSource(Dictionary<string, object> options = null) : base(options)
     {
-        Path = path;
         Context = options?.GetValueOrDefault("context") as string;
         Data = new List<string[]>();
     }
