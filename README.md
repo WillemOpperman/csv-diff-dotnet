@@ -3,6 +3,7 @@
 [![Sponsors on Open Collective](https://opencollective.com/csvdiff/sponsors/badge.svg)](#sponsors)
 <a href="https://www.nuget.org/packages/CSVDiff"><img src="https://img.shields.io/nuget/v/CSVDiff.svg" alt="NuGet Version" /></a>
 <a href="https://www.nuget.org/packages/CSVDiff"><img src="https://img.shields.io/nuget/dt/CSVDiff.svg" alt="NuGet Download Count" /></a>
+[![Coverage Status](https://coveralls.io/repos/github/WillemOpperman/csv-diff-dotnet/badge.svg?branch=main)](https://coveralls.io/github/WillemOpperman/csv-diff-dotnet?branch=main)
 
 A library for performing diffs of Arrays of Arrays, CSV files, or XML files.
 
