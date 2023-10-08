@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Specialized;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using csv_diff.Interfaces;
@@ -28,7 +29,7 @@ public class Source : ISource
     public int LineCount { get; set; }
     public int SkipCount { get; set; }
     public int DupCount { get; set; }
-    public Dictionary<string, Dictionary<string, object>> Lines { get; set; }
+    public SortedList<string, Dictionary<string, object>> Lines { get; set; }
     public Dictionary<string, List<string>> Index { get; set; }
 
     public Source(Dictionary<string, object> options = null)
@@ -107,7 +108,7 @@ public class Source : ISource
 
     public void IndexSource()
     {
-        Lines = new Dictionary<string, Dictionary<string, object>>();
+        Lines = new SortedList<string, Dictionary<string, object>>();
         Index = new Dictionary<string, List<string>>();
         if (FieldNames != null)
         {
