@@ -1,3 +1,12 @@
+## [1.2.5](https://github.com/WillemOpperman/csv-diff-dotnet/compare/v1.2.4...v1.2.5) (2023-10-08)
+
+
+### Bug Fixes
+
+* get correct row index ([de3a800](https://github.com/WillemOpperman/csv-diff-dotnet/commit/de3a800b5a21e74adb05441801b7a580c187b0f0))
+* handle when `ignore_*` options have values ([b81f531](https://github.com/WillemOpperman/csv-diff-dotnet/commit/b81f5313ac436630a5d834b124bef4e0d0fde719))
+* use `SortedList` to get `row` index ([c47fd69](https://github.com/WillemOpperman/csv-diff-dotnet/commit/c47fd690da7fb8300582cd858e5cb6b1c7def672))
+
 ## [1.2.4](https://github.com/WillemOpperman/csv-diff-dotnet/compare/v1.2.3...v1.2.4) (2023-10-07)
 
 
