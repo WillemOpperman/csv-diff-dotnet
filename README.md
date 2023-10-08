@@ -7,6 +7,8 @@
 
 A library for performing diffs of Arrays of Arrays, CSV files, or XML files.
 
+#### For report generation see: <a href="https://github.com/WillemOpperman/csv-diff-report-dotnet">CSVDiffReport</a>
+
 ## Install
 
 ### Package Manager Console
