@@ -35,10 +35,10 @@ public class Algorithm
         var rightKeys = rightValues.Keys;
         var parentFieldCount = left.ParentFields.Count;
 
-        var includeAdds = options?.ContainsKey("ignore_adds") != true;
-        var includeMoves = options?.ContainsKey("ignore_moves") != true;
-        var includeUpdates = options?.ContainsKey("ignore_updates") != true;
-        var includeDeletes = options?.ContainsKey("ignore_deletes") != true;
+        var includeAdds = options.TryGetValue("ignore_adds", out var ignoreAdds) ? !(bool)ignoreAdds : true;
+        var includeMoves = options.TryGetValue("ignore_moves", out var ignoreMoves) ? !(bool)ignoreMoves : true;
+        var includeUpdates = options.TryGetValue("ignore_updates", out var ignoreUpdated) ? !(bool)ignoreUpdated : true;
+        var includeDeletes = options.TryGetValue("ignore_deletes", out var ignoreDeletes) ? !(bool)ignoreDeletes : true;
 
         var caseSensitive = left.CaseSensitive;
         var equalityProcs = options?.ContainsKey("equality_procs") == true
