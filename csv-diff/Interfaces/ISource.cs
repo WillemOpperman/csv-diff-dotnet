@@ -1,4 +1,5 @@
 using System.Text.RegularExpressions;
+using System.Collections.Specialized;
 
 namespace csv_diff.Interfaces;
 
@@ -22,7 +23,7 @@ public interface ISource
     public int LineCount { get; set; }
     public int SkipCount { get; set; }
     public int DupCount { get; set; }
-    public Dictionary<string, Dictionary<string, object>> Lines { get; set; }
+    public SortedList<string, Dictionary<string, object>> Lines { get; set; }
     public Dictionary<string, List<string>> Index { get; set; }
     public bool PathExists => Path != "NA";
     public void IndexSource();
