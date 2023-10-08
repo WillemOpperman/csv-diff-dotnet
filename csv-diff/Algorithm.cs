@@ -60,9 +60,7 @@ public class Algorithm
                 var leftParent = leftIndex[parent];
                 var leftValue = leftValues[key];
                 
-                // TODO
-                // var rowIdx = leftKeys.IndexOf(key);
-                var rowIdx = 0;
+                var rowIdx = leftKeys.IndexOf(key);
                 var sibIdx = leftParent.IndexOf(key);
                 if (sibIdx < 0)
                 {
