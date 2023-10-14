@@ -1,3 +1,10 @@
+## [1.2.6](https://github.com/WillemOpperman/csv-diff-dotnet/compare/v1.2.5...v1.2.6) (2023-10-14)
+
+
+### Bug Fixes
+
+* change to `TryGetValue` to fix field not exist ([1b32274](https://github.com/WillemOpperman/csv-diff-dotnet/commit/1b3227408dd2dfe9c0ceadf0811102cf00d1eddf))
+
 ## [1.2.5](https://github.com/WillemOpperman/csv-diff-dotnet/compare/v1.2.4...v1.2.5) (2023-10-08)
 
 
