@@ -164,8 +164,8 @@ public class Algorithm
         foreach (var attr in fields)
         {
             var eqProc = equalityProcs.ContainsKey(attr) ? equalityProcs[attr] : null;
-            var rightVal = rightRow[attr];
-            var leftVal = leftRow[attr];
+            rightRow.TryGetValue(attr, out var rightVal);
+            leftRow.TryGetValue(attr, out var leftVal);
 
             if (eqProc != null)
             {
