@@ -1,64 +1,67 @@
-namespace csv_diff;
+using System.Collections.Generic;
 
-// Holds the details of a single difference
-public class Diff
+namespace csv_diff
 {
-    public string DiffType { get; set; }
-    public Dictionary<string, object> Fields { get; }
-    public int Row { get; }
-    public object SiblingPosition { get; set; }
-
-    public Diff(string diffType, Dictionary<string, object> fields, int rowIdx, object posIdx)
+    // Holds the details of a single difference
+    public class Diff
     {
-        DiffType = diffType;
-        Fields = fields;
-        Row = rowIdx + 1;
-        SetSiblingPosition(posIdx);
-    }
+        public string DiffType { get; set; }
+        public Dictionary<string, object> Fields { get; }
+        public int Row { get; }
+        public object SiblingPosition { get; set; }
 
-    private void SetSiblingPosition(object posIdx)
-    {
-        if (posIdx is List<int> posList)
+        public Diff(string diffType, Dictionary<string, object> fields, int rowIdx, object posIdx)
         {
-            posList.RemoveAll(item => item == 0);
-            if (posList.Count > 1)
+            DiffType = diffType;
+            Fields = fields;
+            Row = rowIdx + 1;
+            SetSiblingPosition(posIdx);
+        }
+
+        private void SetSiblingPosition(object posIdx)
+        {
+            if (posIdx is List<int> posList)
             {
-                SiblingPosition = posList.ConvertAll(pos => pos + 1);
+                posList.RemoveAll(item => item == 0);
+                if (posList.Count > 1)
+                {
+                    SiblingPosition = posList.ConvertAll(pos => pos + 1);
+                }
+                else
+                {
+                    SiblingPosition = posList.Count > 0 ? posList[0] + 1 : -1;
+                }
             }
-            else
+            else if (posIdx is int pos)
             {
-                SiblingPosition = posList.Count > 0 ? posList[0] + 1 : null;
+                SiblingPosition = pos + 1;
             }
         }
-        else if (posIdx is int pos)
-        {
-            SiblingPosition = pos + 1;
-        }
-    }
 
-    // For backwards compatibility and access to fields with differences
-    public object this[string key]
-    {
-        get
+        // For backwards compatibility and access to fields with differences
+        public object this[string key]
         {
-            switch (key)
+            get
             {
-                case "Action":
-                case "action":
-                    string a = DiffType;
-                    if (!string.IsNullOrEmpty(a))
-                    {
-                        a = char.ToUpper(a[0]) + a.Substring(1);
-                    }
-                    return a;
-                case "Row":
-                case "row":
-                    return Row;
-                case "SiblingPosition":
-                case "sibling_position":
-                    return SiblingPosition;
-                default:
-                    return Fields.TryGetValue(key, out object? value) ? value : null;
+                switch (key)
+                {
+                    case "Action":
+                    case "action":
+                        string a = DiffType;
+                        if (!string.IsNullOrEmpty(a))
+                        {
+                            a = char.ToUpper(a[0]) + a.Substring(1);
+                        }
+                        return a;
+                    case "Row":
+                    case "row":
+                        return Row;
+                    case "SiblingPosition":
+                    case "sibling_position":
+                        return SiblingPosition;
+                    default:
+                        return Fields.TryGetValue(key, out object value) ? value : null;
+                }
             }
         }
     }
