@@ -11,6 +11,7 @@ namespace tests
         private static readonly List<string[]> Data1 = new List<string[]>()
         {
             new[] { "Parent", "Child", "Description" },
+            new[] { "M", "M1", "MoveAccount1" },
             new[] { "A", "A1", "Account1" },
             new[] { "A", "A2", "Account 2" },
             new[] { "A", "A3", "Account 3" },
@@ -26,17 +27,32 @@ namespace tests
             new[] { "A", "a3", "ACCOUNT 3" },
             new[] { "A", "A5", "Account 5" },
             new[] { "B", "A6", "Account 6" },
+            new[] { "M", "M1", "MoveAccount1" },
             new[] { "C", "A6", "Account 6c" }
         };
+        [Fact]
+        public void TestArrayDiffMoves()
+        {
+            var diff = new CSVDiff(Data1, Data2, new Dictionary<string, object>
+            {
+                { "key_fields", new[] {0,1} },
+                { "ignore_moves", false },
+            });
 
+            Assert.Equal(4, diff.Adds.Count);
+            Assert.Equal(3, diff.Deletes.Count);
+            Assert.Equal(1, diff.Updates.Count);
+            Assert.Equal(2, diff.Moves.Count);
+        }
         [Fact]
         public void TestArrayDiff()
         {
             var diff = new CSVDiff(Data1, Data2, new Dictionary<string, object>
             {
                 { "parent_field", 0 },
-                { "child_field", 1 }
-            });
+                { "child_field", 1 },
+                { "ignore_moves", false }
+            });  
 
             Assert.Equal(new[] {"Parent"}, diff.Left.ParentFields);
             Assert.Equal(new[] {"Parent"}, diff.Right.ParentFields);
@@ -46,6 +62,7 @@ namespace tests
             Assert.Equal(3, diff.Adds.Count);
             Assert.Equal(2, diff.Deletes.Count);
             Assert.Equal(2, diff.Updates.Count);
+            Assert.Equal(2, diff.Moves.Count);
         }
 
         [Fact]
@@ -153,7 +170,7 @@ namespace tests
                 { "exclude", new Dictionary<string, Regex> { { "2", new Regex("^ACC") } } }
             });
 
-            Assert.Equal(1, source1.SkipCount);
+            Assert.Equal(2, source1.SkipCount);
             Assert.Equal(1, source2.SkipCount);
         }
 
@@ -169,11 +186,35 @@ namespace tests
             Assert.Empty(diff.Updates);
         }
 
-        [Fact(Skip = "Speed testing only")]
+        [Fact]
         public void TestCustomers_10000()
         {
             var data1Path = Path.Combine(Path.GetDirectoryName(typeof(TestDiff).Assembly.Location), "files", "customers-10000.csv");
             var data2Path = Path.Combine(Path.GetDirectoryName(typeof(TestDiff).Assembly.Location), "files", "customers-10000.csv");
+            var diff = new CSVDiff(data1Path, data2Path);
+
+            Assert.Empty(diff.Adds);
+            Assert.Empty(diff.Deletes);
+            Assert.Empty(diff.Updates);
+        }
+
+        [Fact]
+        public void TestCustomers_100000()
+        {
+            var data1Path = Path.Combine(Path.GetDirectoryName(typeof(TestDiff).Assembly.Location), "files", "customers-100000.csv");
+            var data2Path = Path.Combine(Path.GetDirectoryName(typeof(TestDiff).Assembly.Location), "files", "customers-100000.csv");
+            var diff = new CSVDiff(data1Path, data2Path);
+
+            Assert.Empty(diff.Adds);
+            Assert.Empty(diff.Deletes);
+            Assert.Empty(diff.Updates);
+        }
+
+        [Fact]
+        public void TestCustomers_1000000()
+        {
+            var data1Path = Path.Combine(Path.GetDirectoryName(typeof(TestDiff).Assembly.Location), "files", "customers-1000000.csv");
+            var data2Path = Path.Combine(Path.GetDirectoryName(typeof(TestDiff).Assembly.Location), "files", "customers-1000000.csv");
             var diff = new CSVDiff(data1Path, data2Path);
 
             Assert.Empty(diff.Adds);

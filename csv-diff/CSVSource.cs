@@ -19,7 +19,7 @@ namespace csv_diff
             }
             else if (source is IEnumerable<string[]> dataRows)
             {
-                Data = dataRows.ToList();
+                Data = dataRows;
             }
             else
             {
@@ -49,7 +49,7 @@ namespace csv_diff
                 AllowComments = false,
                 Comment = '#',
             };
-            
+
             if (csvOptions != null)
             {
                 foreach (var kvp in csvOptions)
@@ -58,12 +58,10 @@ namespace csv_diff
                 }
             }
 
-            using (var reader = new StreamReader(filePath, encoding != null ? System.Text.Encoding.GetEncoding(encoding) : new UTF8Encoding(false)))
-            using (var csv = new CsvReader(reader, config))
-            {
-                var records = csv.GetRecords<dynamic>().ToList();
-                Data = records.Select(r => ((IDictionary<string, object>)r).Values.Select(v => v.ToString()).ToArray()).ToList();
-            }
+            var reader = new StreamReader(filePath, encoding != null ? System.Text.Encoding.GetEncoding(encoding) : new UTF8Encoding(false));
+            var csv = new CsvReader(reader, config);
+            var records = csv.GetRecords<dynamic>();//.ToList();
+            Data = records.Select(r => ((IDictionary<string, object>)r).Values.Select(v => v.ToString()).ToArray());//.ToArray();
         }
     }
 }

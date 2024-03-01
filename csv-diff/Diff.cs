@@ -1,8 +1,11 @@
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace csv_diff
 {
     // Holds the details of a single difference
+
+    [DebuggerDisplay("{DiffType} {Row}")]
     public class Diff
     {
         public string DiffType { get; set; }
