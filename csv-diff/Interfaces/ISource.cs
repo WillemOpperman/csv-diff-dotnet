@@ -12,7 +12,7 @@ namespace csv_diff.Interfaces
         string Path { get; set; }
         
         [ExcludeFromCodeCoverage]
-        List<string[]> Data { get; set; }
+        IEnumerable<string[]> Data { get; set; }
         
         [ExcludeFromCodeCoverage]
         List<string> FieldNames { get; set; }
@@ -66,7 +66,7 @@ namespace csv_diff.Interfaces
         SortedList<string, Dictionary<string, object>> Lines { get; set; }
         
         [ExcludeFromCodeCoverage]
-        Dictionary<string, List<string>> Index { get; set; }
+        Dictionary<string, Dictionary<string, int>> Index { get; set; }
         
         [ExcludeFromCodeCoverage]
         bool PathExists();
