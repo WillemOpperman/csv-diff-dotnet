@@ -64,7 +64,7 @@ namespace csv_diff
                     var leftValue = leftValues[key];
                     
                     var rowIdx = leftKeys.IndexOf(key);
-                    var sibIdx = leftParent.IndexOf(key);
+                    var sibIdx = leftParent[key];
                     if (sibIdx < 0)
                     {
                         throw new Exception($"Can't locate key {key} in parent {parent}");
@@ -89,11 +89,14 @@ namespace csv_diff
                 var rightParent = rightIndex[parent];
                 var leftValue = leftValues.ContainsKey(key) ? leftValues[key] : null;
                 var rightValue = rightValues[key];
-                var leftIdx = leftParent?.IndexOf(key) ?? -1;
-                var rightIdx = rightParent.IndexOf(key);
-
-                if (leftIdx >= 0 && rightIdx >= 0)
+                // the following 2 IndexOf calls are the most expensive part of the diff
+        
+                var keyInLeftParent =  leftParent != null && leftParent.ContainsKey(key);
+                var keyInRightParent = rightParent.ContainsKey(key);
+                if (keyInLeftParent && keyInRightParent)
                 {
+                    var leftIdx = leftParent?[key] ?? -1;
+                    var rightIdx = rightParent[key];
                     if (includeUpdates && diffFieldsNoKeys.Length > 0)
                     {
                         var changes = DiffRow(leftValue, rightValue, diffFieldsNoKeys, caseSensitive, equalityProcs);
@@ -105,29 +108,23 @@ namespace csv_diff
                         }
                     }
 
-                    if (includeMoves)
+                    if (includeMoves && leftIdx >= 0 && rightIdx >= 0 && leftIdx != rightIdx)
                     {
-                        var leftCommon = leftParent.Intersect(rightParent).ToList();
-                        var rightCommon = rightParent.Intersect(leftParent).ToList();
-                        var leftPos = leftCommon.IndexOf(key);
-                        var rightPos = rightCommon.IndexOf(key);
-                        if (leftPos != rightPos)
+                        // Move
+                        if (diffs.TryGetValue(key, out var d))
                         {
-                            // Move
-                            if (diffs.TryGetValue(key, out var d))
-                            {
-                                d.SiblingPosition = new List<int> { leftIdx, rightIdx };
-                            }
-                            else
-                            {
-                                var id = IdFields(keyFields, rightValue);
-                                diffs[key] = new Diff("move", id, rightIdx, new List<int> { leftIdx, rightIdx });
-                            }
+                            d.SiblingPosition = new List<int> { leftIdx, rightIdx };
+                        }
+                        else
+                        {
+                            var id = IdFields(keyFields, rightValue);
+                            diffs[key] = new Diff("move", id, rightIdx, new List<int> { leftIdx, rightIdx });
                         }
                     }
                 }
-                else if (rightIdx >= 0)
+                else if (keyInRightParent)
                 {
+                    var rightIdx = rightParent[key];
                     // Add
                     var child = string.Join("~", keyVals.Skip(parentFieldCount));
                     if (potentialMoves.TryGetValue(child, out var potentialMovesList) && potentialMovesList.Count > 0)
