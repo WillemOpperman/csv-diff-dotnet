@@ -82,13 +82,11 @@ namespace csv_diff
             if (options.ContainsKey("include"))
             {
                 Include = (Dictionary<string, Regex>)options["include"];
-                // Include = ConvertFilter((Dictionary<string, Regex>)options["include"], FieldNames);
             }
 
             if (options.ContainsKey("exclude"))
             {
                 Exclude = (Dictionary<string, Regex>)options["exclude"];
-                // Exclude = ConvertFilter((Dictionary<string, Regex>)options["exclude"], FieldNames);
             }
 
             Path = options.ContainsKey("path") ? options["path"].ToString() : "NA";
@@ -208,10 +206,10 @@ namespace csv_diff
                     HasHeaderRecord = true,
                 };
                 var csv = new CsvHelper.CsvWriter(writer, defaultOpts);
-                //foreach (var row in Data)
-                //{
-                //    csv.WriteRecords(new[] { row });
-                //}
+                foreach (var row in Data)
+                {
+                    csv.WriteRecords(new[] { row });
+                }
             }
         }
 

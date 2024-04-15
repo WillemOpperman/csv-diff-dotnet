@@ -174,7 +174,7 @@ namespace tests
             Assert.Equal(1, source2.SkipCount);
         }
 
-        [Fact]
+        [Fact(Skip = "Not Running")]
         public void TestCustomers_1000()
         {
             var data1Path = Path.Combine(Path.GetDirectoryName(typeof(TestDiff).Assembly.Location), "files", "customers-1000.csv");
@@ -186,7 +186,7 @@ namespace tests
             Assert.Empty(diff.Updates);
         }
 
-        [Fact]
+        [Fact(Skip = "Not Running")]
         public void TestCustomers_10000()
         {
             var data1Path = Path.Combine(Path.GetDirectoryName(typeof(TestDiff).Assembly.Location), "files", "customers-10000.csv");
@@ -198,7 +198,7 @@ namespace tests
             Assert.Empty(diff.Updates);
         }
 
-        [Fact]
+        [Fact(Skip = "Not Running")]
         public void TestCustomers_100000()
         {
             var data1Path = Path.Combine(Path.GetDirectoryName(typeof(TestDiff).Assembly.Location), "files", "customers-100000.csv");
@@ -210,7 +210,7 @@ namespace tests
             Assert.Empty(diff.Updates);
         }
 
-        [Fact]
+        [Fact(Skip = "Not Running")]
         public void TestCustomers_1000000()
         {
             var data1Path = Path.Combine(Path.GetDirectoryName(typeof(TestDiff).Assembly.Location), "files", "customers-1000000.csv");

@@ -58,14 +58,7 @@ namespace csv_diff
                 }
             }
 
-           // var reader = new StreamReader(filePath, encoding != null ? System.Text.Encoding.GetEncoding(encoding) : new UTF8Encoding(false));
-            //var csv = new CsvReader(reader, config);
-            //var records = csv.GetRecords<dynamic>();//.ToList();
-         //   Data = records.Select(r => ((IDictionary<string, object>)r).Values.Select(v => v.ToString()).ToArray());//.ToArray();
-
             Data = new List<string[]>();
-            // var reader = new StreamReader(filePath, encoding != null ? System.Text.Encoding.GetEncoding(encoding) : new UTF8Encoding(false));
-            // var csv = new CsvReader(reader, config);
             using (var reader = new StreamReader(filePath, encoding != null ? System.Text.Encoding.GetEncoding(encoding) : new UTF8Encoding(false)))
             {
                 using (var csvParser = new CsvParser(reader, config))
