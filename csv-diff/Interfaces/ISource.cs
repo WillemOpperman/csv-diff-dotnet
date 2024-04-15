@@ -12,7 +12,7 @@ namespace csv_diff.Interfaces
         string Path { get; set; }
         
         [ExcludeFromCodeCoverage]
-        IEnumerable<string[]> Data { get; set; }
+        List<string[]> Data { get; set; }
         
         [ExcludeFromCodeCoverage]
         List<string> FieldNames { get; set; }

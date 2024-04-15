@@ -15,7 +15,7 @@ namespace csv_diff
     public class Source : ISource
     {
         public string Path { get; set; }
-        public IEnumerable<string[]> Data { get; set; }
+        public List<string[]> Data { get; set; }
         public List<string> FieldNames { get; set; }
         public List<string> KeyFields { get; set; }
         public List<string> ParentFields { get; set; }

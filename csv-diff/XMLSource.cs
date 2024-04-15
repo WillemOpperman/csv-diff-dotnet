@@ -107,7 +107,7 @@ namespace csv_diff
                         rec.Add(expr);
                     }
                 }
-                Data = Data.Append(rec.ToArray());
+                Data = Data.Append(rec.ToArray()).ToList();
             }
         }
 

@@ -52,12 +52,12 @@ namespace tests
                 { "parent_field", 0 },
                 { "child_field", 1 },
                 { "ignore_moves", false }
-            });  
+            });
 
-            Assert.Equal(new[] {"Parent"}, diff.Left.ParentFields);
-            Assert.Equal(new[] {"Parent"}, diff.Right.ParentFields);
-            Assert.Equal(new[] {"Child"}, diff.Left.ChildFields);
-            Assert.Equal(new[] {"Child"}, diff.Right.ChildFields);
+            Assert.Equal(new[] { "Parent" }, diff.Left.ParentFields);
+            Assert.Equal(new[] { "Parent" }, diff.Right.ParentFields);
+            Assert.Equal(new[] { "Child" }, diff.Left.ChildFields);
+            Assert.Equal(new[] { "Child" }, diff.Right.ChildFields);
 
             Assert.Equal(3, diff.Adds.Count);
             Assert.Equal(2, diff.Deletes.Count);
@@ -92,7 +92,7 @@ namespace tests
                 {"parent_field", 0},
                 {"child_field", 1}
             };
-            
+
             var leftXmlSource = new XMLSource(data1Path, xmlSourceOptions);
             leftXmlSource.Process(data1Path, "//Workbook/Worksheet/Table/Row", new Dictionary<string, string>
             {
@@ -100,7 +100,7 @@ namespace tests
                 { "Child", "Cell[2]/Data/text()"  },
                 { "Description", "Cell[3]/Data/text()"  }
             });
-            
+
             var rightXmlSource = new XMLSource(data2Path, xmlSourceOptions);
             rightXmlSource.Process(data2Path, "//Workbook/Worksheet/Table/Row", new Dictionary<string, string>
             {
@@ -108,7 +108,7 @@ namespace tests
                 { "Child", "Cell[2]/Data/text()"  },
                 { "Description", "Cell[3]/Data/text()"  }
             });
-            
+
             var diff = new CSVDiff(leftXmlSource, rightXmlSource, new Dictionary<string, object>
             {
                 { "ignore_moves", true },
@@ -220,6 +220,13 @@ namespace tests
             Assert.Empty(diff.Adds);
             Assert.Empty(diff.Deletes);
             Assert.Empty(diff.Updates);
+        }
+
+        [Fact]
+        public void TestDoubleDiff()
+        {
+            double fifteen = 15f;
+            Assert.True(fifteen*1000f <= 15f*1000f);
         }
     }
 }
