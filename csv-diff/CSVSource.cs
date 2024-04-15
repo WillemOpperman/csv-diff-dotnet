@@ -49,7 +49,7 @@ namespace csv_diff
                 AllowComments = false,
                 Comment = '#',
             };
-            
+
             if (csvOptions != null)
             {
                 foreach (var kvp in csvOptions)
@@ -58,11 +58,16 @@ namespace csv_diff
                 }
             }
 
+            Data = new List<string[]>();
             using (var reader = new StreamReader(filePath, encoding != null ? System.Text.Encoding.GetEncoding(encoding) : new UTF8Encoding(false)))
-            using (var csv = new CsvReader(reader, config))
             {
-                var records = csv.GetRecords<dynamic>().ToList();
-                Data = records.Select(r => ((IDictionary<string, object>)r).Values.Select(v => v.ToString()).ToArray()).ToList();
+                using (var csvParser = new CsvParser(reader, config))
+                {
+                    while (csvParser.Read())
+                    {
+                        Data.Add(csvParser.Record.ToArray());
+                    }
+                }
             }
         }
     }

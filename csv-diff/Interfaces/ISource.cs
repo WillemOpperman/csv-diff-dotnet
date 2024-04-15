@@ -66,7 +66,7 @@ namespace csv_diff.Interfaces
         SortedList<string, Dictionary<string, object>> Lines { get; set; }
         
         [ExcludeFromCodeCoverage]
-        Dictionary<string, List<string>> Index { get; set; }
+        Dictionary<string, Dictionary<string, int>> Index { get; set; }
         
         [ExcludeFromCodeCoverage]
         bool PathExists();

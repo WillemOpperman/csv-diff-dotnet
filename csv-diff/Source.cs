@@ -33,7 +33,7 @@ namespace csv_diff
         public int SkipCount { get; set; }
         public int DupCount { get; set; }
         public SortedList<string, Dictionary<string, object>> Lines { get; set; }
-        public Dictionary<string, List<string>> Index { get; set; }
+        public Dictionary<string, Dictionary<string, int>> Index { get; set; }
 
         public Source(Dictionary<string, object> options = null)
         {
@@ -82,13 +82,11 @@ namespace csv_diff
             if (options.ContainsKey("include"))
             {
                 Include = (Dictionary<string, Regex>)options["include"];
-                // Include = ConvertFilter((Dictionary<string, Regex>)options["include"], FieldNames);
             }
 
             if (options.ContainsKey("exclude"))
             {
                 Exclude = (Dictionary<string, Regex>)options["exclude"];
-                // Exclude = ConvertFilter((Dictionary<string, Regex>)options["exclude"], FieldNames);
             }
 
             Path = options.ContainsKey("path") ? options["path"].ToString() : "NA";
@@ -115,7 +113,7 @@ namespace csv_diff
         public void IndexSource()
         {
             Lines = new SortedList<string, Dictionary<string, object>>();
-            Index = new Dictionary<string, List<string>>();
+            Index = new Dictionary<string, Dictionary<string, int>>();
             if (FieldNames != null)
             {
                 IndexFields();
@@ -126,6 +124,7 @@ namespace csv_diff
             SkipCount = 0;
             DupCount = 0;
             var lineNum = 0;
+            var idx = 0;
             foreach (var row in Data)
             {
                 lineNum++;
@@ -189,10 +188,10 @@ namespace csv_diff
 
                 if (!Index.ContainsKey(parentKey))
                 {
-                    Index[parentKey] = new List<string>();
+                    Index[parentKey] = new Dictionary<string, int>();
                 }
 
-                Index[parentKey].Add(key);
+                Index[parentKey].Add(key, idx++);
                 Lines[key] = line;
                 LineCount++;
             }
@@ -287,19 +286,19 @@ namespace csv_diff
         {
             if (filter is string s)
             {
-                return CaseSensitive ? s == fieldValue : s.Equals((string)fieldValue, StringComparison.OrdinalIgnoreCase);
+                return CaseSensitive ? s == (string)fieldValue : s.Equals((string)fieldValue, StringComparison.OrdinalIgnoreCase);
             }
-            
+
             if (filter is Regex regex)
             {
                 return regex.IsMatch((string)fieldValue);
             }
-            
+
             if (filter is Func<string, bool> func)
             {
                 return func((string)fieldValue);
             }
-            
+
             throw new ArgumentException($"Unsupported filter expression: {filter}");
         }
     }
