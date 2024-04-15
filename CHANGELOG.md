@@ -1,3 +1,12 @@
+## [1.3.1](https://github.com/WillemOpperman/csv-diff-dotnet/compare/v1.3.0...v1.3.1) (2024-04-15)
+
+
+### Bug Fixes
+
+* cleanup comments ([6e899bc](https://github.com/WillemOpperman/csv-diff-dotnet/commit/6e899bc5e19d263059c078041a3feacaf378be3d))
+* further improvements ([cacde95](https://github.com/WillemOpperman/csv-diff-dotnet/commit/cacde95610e73f4cdb859b76c6d398f2c656761d))
+* speedup ([60f091d](https://github.com/WillemOpperman/csv-diff-dotnet/commit/60f091d4850d15da9c4fe8106a752cbf38afe0be))
+
 # [1.3.0](https://github.com/WillemOpperman/csv-diff-dotnet/compare/v1.2.6...v1.3.0) (2023-11-12)
 
 
